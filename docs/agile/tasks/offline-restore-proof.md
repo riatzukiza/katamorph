@@ -60,7 +60,8 @@ No candidate code executes with publisher/deployment credentials.
 - [ ] Record source, runner/tool versions/digests, graph identity, artifact IDs/
       digests, networking proof, command logs/test totals and all red/green
       controls in append-only receipts. All admitted payloads have complete terms.
-- [ ] Set closure=true/network-required=false only in the separately named artifact
+- [ ] Set `runtime_dependency_closure_included: true` and
+      `network_required_after_restore: false` only in the separately named artifact
       that passes every epic criterion. Missing/skipped commands, notices,
       corrupted input or unavailable enforcement preserve failure/unqualified
       state; retain original artifact/history and reviewed restore documentation.

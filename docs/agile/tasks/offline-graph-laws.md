@@ -53,7 +53,9 @@ provider trust/signing machinery or actual offline-success claim.
 - [ ] Positive and one-at-a-time negative no-network fixtures cover missing npm
       and Maven entries, bad digest facts, dangling/unknown edges, duplicate
       identity conflicts, incompatible tuple, absent notices and incomplete
-      build/profile coverage. Run shared .cljc fixtures under JVM and CLJS.
+      build/profile coverage. Independently test traversal, POSIX absolute
+      destinations, Windows drive paths and UNC paths as separate negative
+      cases. Run these shared .cljc fixtures under both JVM and CLJS.
 - [ ] Admission cannot turn artifact flags true from manifest shape alone: actual
       verification facts for every required command/control remain mandatory.
       Document version/schema and deterministic diagnostics for adapter consumers.
