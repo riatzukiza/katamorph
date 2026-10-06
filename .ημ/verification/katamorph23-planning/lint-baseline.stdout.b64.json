@@ -1,0 +1,7 @@
+{
+  "format": "lossless-base64-capture-v1",
+  "source": "lint-baseline.stdout",
+  "decoded_size": 43,
+  "decoded_sha256": "f186024cd74bdca4d57af5d033757d5f380d6a1ce7352a159034ca91b9bd91e2",
+  "base64": "bGludGluZyB0b29rIDUxOW1zLCBlcnJvcnM6IDAsIHdhcm5pbmdzOiAwCg=="
+}
