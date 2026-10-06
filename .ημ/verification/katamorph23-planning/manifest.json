@@ -166,5 +166,11 @@
     "source": "final-protected-prefixes.json",
     "decoded_size": 25421,
     "decoded_sha256": "279143ec593e28b5ca0cfe1c6faebf859b6b302517b2d55c50fc2c852790cac4"
+  },
+  {
+    "wrapper": "native-empty-ledger.json.b64.json",
+    "source": "native-empty-ledger.json",
+    "decoded_size": 360,
+    "decoded_sha256": "73574d945a717b9cc36fa70741444547acd7ee4289e6a4166351cf06d2a5feec"
   }
 ]

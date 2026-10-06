@@ -14,8 +14,8 @@ events and receipt prefixes remain unchanged.
 There is no checked-in AGENTS.md, local SKILL.md, board config or card at base.
 Ancestor instructions and canonical pr-flow control planning/qualification.
 `docs/agile/tasks` is the installed reader's default path; choosing incoming
-Markdown there grants neither board activation nor readiness. No operational
-transition is included.
+Markdown there grants neither board activation nor readiness. Native incoming readback created a zero-byte `.events/ledger.edn`; that native
+artifact is preserved, with no event or operational transition included.
 
 ## Current observations
 

@@ -1,7 +1,7 @@
 # Katamorph issue 23 planning evidence
 
 Captures bind baseline `fe6017b28baa2d561550dc03768b3dd0da3f1480` and this
-independent private worktree. `manifest.json` enumerates 28 lossless JSON/base64
+independent private worktree. `manifest.json` enumerates 29 lossless JSON/base64
 transports; decode each `base64` value and verify its exact size/SHA-256.
 Empty stderr captures remain explicit. Capture metadata carries the commands,
 owned paths and exit codes. The baseline preservation capture enumerates every
@@ -27,3 +27,9 @@ current extracted Receipt River API at
 `154440f3c997aa9208194bba59b5edbef3654f78` as a chosen preparation check. That
 consumer does not become Katamorph policy, and its additional requirements are
 not retroactively applied to inherited rows. Historical ledger bytes are kept.
+
+Native read-task additionally materialized `docs/agile/tasks/.events/ledger.edn`
+as exactly zero bytes. It is preserved as the native-created empty ledger; no
+event or transition exists. Initial baseline/prefix captures refer to the first
+two appended receipts; an ordinary follow-up records this preparation artifact
+without changing those raw proofs or historical receipt bytes.
