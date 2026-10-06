@@ -1,0 +1,7 @@
+{
+  "format": "lossless-base64-capture-v1",
+  "source": "native-empty-ledger.json",
+  "decoded_size": 360,
+  "decoded_sha256": "73574d945a717b9cc36fa70741444547acd7ee4289e6a4166351cf06d2a5feec",
+  "base64": "ewogICJwcm9kdWNlciI6ICJpbnN0YWxsZWQgZXRhLW11L1JoZW9zMS4xLjEgbmF0aXZlIHJlYWQtdGFzayIsCiAgInBhdGgiOiAiZG9jcy9hZ2lsZS90YXNrcy8uZXZlbnRzL2xlZGdlci5lZG4iLAogICJzaXplIjogMCwKICAic2hhMjU2IjogImUzYjBjNDQyOThmYzFjMTQ5YWZiZjRjODk5NmZiOTI0MjdhZTQxZTQ2NDliOTM0Y2E0OTU5OTFiNzg1MmI4NTUiLAogICJldmVudHMiOiAwLAogICJzdGFnZSI6ICJvd25lZCBwcmVwYXJhdGlvbjsgbm8gZXhpc3RpbmcgZmlsZSBvdmVyd3JpdHRlbiIsCiAgImluaXRpYWxfcHJlcGFyYXRpb25fY29tbWl0IjogIjBkMWRkOWZlZWRjZmU2YzgzYjE0NWMwNjYwNzdlZmEzNWEwZTRjY2UiCn0K"
+}

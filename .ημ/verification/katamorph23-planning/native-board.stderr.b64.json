@@ -1,0 +1,7 @@
+{
+  "format": "lossless-base64-capture-v1",
+  "source": "native-board.stderr",
+  "decoded_size": 274,
+  "decoded_sha256": "20597b3bc9fc57949e0e8c54a7244b9f968f97325556973ee4e3556d51949a0e",
+  "base64": "Y29sbGVjdCBlcnJvcjogL2hvbWUvZXJyLy5jb2RleC9wYXJhbGxlbC1nb2FsL2NoaWxkLXBycy0yMDI2MTAwNi9rYXRhbW9ycGgyMy0yNC1pbnRha2UtMjAyNjEwMDYvd29ya3RyZWUvZG9jcy9hZ2lsZS90YXNrcyBFTk9FTlQ6IG5vIHN1Y2ggZmlsZSBvciBkaXJlY3RvcnksIHNjYW5kaXIgJy9ob21lL2Vyci8uY29kZXgvcGFyYWxsZWwtZ29hbC9jaGlsZC1wcnMtMjAyNjEwMDYva2F0YW1vcnBoMjMtMjQtaW50YWtlLTIwMjYxMDA2L3dvcmt0cmVlL2RvY3MvYWdpbGUvdGFza3MnCg=="
+}

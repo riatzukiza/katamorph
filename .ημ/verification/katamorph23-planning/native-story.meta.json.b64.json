@@ -1,0 +1,7 @@
+{
+  "format": "lossless-base64-capture-v1",
+  "source": "native-story.meta.json",
+  "decoded_size": 319,
+  "decoded_sha256": "037a5297f2f4174b0ea2ef72b29ad80be758f16e77dd3d74384e3160558ee9ca",
+  "base64": "ewogICJjb21tYW5kIjogWwogICAgIm5vZGUiLAogICAgIi9ob21lL2Vyci8udm9sdGEvdG9vbHMvaW1hZ2UvcGFja2FnZXMvZXRhLW11L2xpYi9ub2RlX21vZHVsZXMvZXRhLW11L2Rpc3QtY2xpL2luZGV4LmNqcyIsCiAgICAia2FuYmFuIiwKICAgICJyZWFkLXRhc2siLAogICAgImFiNzQxZWY0LTgzMTAtNDg1My1hNTllLTc5ZGJjMDQyYzAzOCIKICBdLAogICJjd2QiOiAiL2hvbWUvZXJyLy5jb2RleC9wYXJhbGxlbC1nb2FsL2NoaWxkLXBycy0yMDI2MTAwNi9rYXRhbW9ycGgyMy0yNC1pbnRha2UtMjAyNjEwMDYvd29ya3RyZWUiLAogICJleGl0IjogMAp9Cg=="
+}
