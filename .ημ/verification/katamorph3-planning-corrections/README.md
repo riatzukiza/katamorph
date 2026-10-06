@@ -1,0 +1,7 @@
+# Verified planning corrections, preparation only
+
+Native CodeRabbit review5434740471 on df13d4617db6585736e89d10c8c60a0844023ab1 produced two P2 findings:4200586860 / PRRT_kwDOU4Vd8M6pqfa4 (path-safety negative fixture criteria) and4200586875 / PRRT_kwDOU4Vd8M6pqfbF (exact artifact flag names). Same attempt cdabc0fa-73fb-49c2-846c-f289f9eaa324 reviewed all26changedpaths, not an approval or completed cohort round. Full body had no additional nitpick/outside-diff item.
+
+The two card-body changes require separate traversal, POSIX absolute, Windows drive and UNC negative fixtures under both JVM and CLJS, and use the epic exact runtime_dependency_closure_included:true/network_required_after_restore:false fields. All ten original issue criteria, identities, incoming frontmatter and engine event bytes stay unchanged. No fixtures, dependency materialization, restore or offline build was executed; no implementation or readiness is claimed.
+
+Native capture wrappers are explicitly REDACTED transports: they preserve redacted decoded bytes/SHA/size, plus original raw SHA/size and private source provenance. Native opaque scoped URL parameters are never committed or used. They are not lossless original native body copies. Raw originals remain private outside the worktree. Readback is native input visibility only, not qualification. The chosen current Receipt River API validates newly declared preparation rows; it does not impose admission policy on inherited history. Source candidate awaits root peer before push or settlement.

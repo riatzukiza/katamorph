@@ -1,0 +1,30 @@
+{
+  "source_predecessor": "df13d4617db6585736e89d10c8c60a0844023ab1",
+  "unchanged_original_files": 137,
+  "card_frontmatter": {
+    "docs/agile/tasks/offline-graph-laws.md": "byte exact",
+    "docs/agile/tasks/offline-restore-proof.md": "byte exact"
+  },
+  "append_prefixes": {
+    ".\u03b7\u03bc/receipts.edn": {
+      "original_size": 66410,
+      "original_sha256": "16a12c1fb5912039d7c4d9ddf4faef9c53401c954b23d6dfa6df2ef43fdecb06",
+      "original_rows": 46
+    },
+    ".\u03b7\u03bc/session-mycology/ledger.md": {
+      "original_size": 639,
+      "original_sha256": "197dcf3d07b0448927be17fde8abe507d9103a9ba5f8fb411d421cccd4654d29",
+      "original_rows": 10
+    }
+  },
+  "all10_epic_criteria": "entire epic byte exact",
+  "engine_event_file": "0 bytes exact",
+  "redacted_native_sources": 5,
+  "lossless_native_readback_streams": 6,
+  "opaque_parameter_committed": false,
+  "input_visibility": "native two read-task calls0stderr only, no readiness",
+  "hygiene": "PASS",
+  "consumer": "chosenRR154440 new declared preparation rows only, no inherited admission claim",
+  "implementation_tests": "not run; planning body only",
+  "publication_audit": "9b0aa8c0b6989f5bc4bb096a532e485ff0c70ec0 unchanged"
+}
