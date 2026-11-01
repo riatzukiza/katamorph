@@ -7,7 +7,11 @@
             [katamorph.edn.portable :as portable]))
 
 (def did-pattern
-  #"did:[a-z0-9]+:\S+")
+  "A DID, not a DID URL. Method is lowercase. The method-specific id is
+   idchar segments separated by colons. idchar is ASCII alpha, digit, dot,
+   hyphen, underscore, or a percent-encoding. Query, fragment, and slash are
+   outside the DID syntax."
+  #"did:[a-z0-9]+:(?:[A-Za-z0-9._-]|%[0-9A-Fa-f]{2})+(?::(?:[A-Za-z0-9._-]|%[0-9A-Fa-f]{2})+)*")
 
 (defn did?
   "A did: URI. The method is lowercase. Katamorph does not resolve it."
@@ -20,8 +24,7 @@
 
 (defn resource-id?
   [value]
-  (or (and (keyword? value)
-           (not (str/blank? (name value))))
+  (or (portable/portable-keyword? value)
       (and (string? value)
            (not (str/blank? value)))))
 

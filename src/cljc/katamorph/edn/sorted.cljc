@@ -11,16 +11,26 @@
   (:require #?(:clj [clojure.edn :as edn]
                :cljs [cljs.reader :as edn])))
 
+(defn- print-unlimited
+  "pr-str ignores a caller's *print-length* or *print-level* binding.
+
+   A bound length of 1 would print both `[1 2]` and `[1 3]` as `[1 ...]`,
+   and a sorted set would then drop one of them."
+  [value]
+  (binding [*print-length* nil
+            *print-level* nil]
+    (pr-str value)))
+
 (defn order-value
   "Sort maps and sets recursively. Vectors keep their order."
   [value]
   (cond
     (map? value)
-    (into (sorted-map-by #(compare (pr-str %1) (pr-str %2)))
+    (into (sorted-map-by #(compare (print-unlimited %1) (print-unlimited %2)))
           (map (fn [[k v]] [k (order-value v)]) value))
 
     (set? value)
-    (into (sorted-set-by #(compare (pr-str %1) (pr-str %2)))
+    (into (sorted-set-by #(compare (print-unlimited %1) (print-unlimited %2)))
           (map order-value value))
 
     (vector? value)
@@ -31,7 +41,7 @@
 (defn export-edn
   "Deterministic EDN text. Key order in the input does not change the text."
   [value]
-  (pr-str (order-value value)))
+  (print-unlimited (order-value value)))
 
 (defn import-edn
   "Read one EDN value produced by export-edn."
