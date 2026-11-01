@@ -30,4 +30,7 @@
            (sorted/export-edn #{[1 3] [1 2]})))
     (is (= #{[1 2] [1 3]} (set (sorted/round-trip #{[1 2] [1 3]}))))
     (is (= {:a "x"} (sorted/round-trip {:a "x"})))
-    (is (= #{1 "1"} (set (sorted/round-trip #{1 "1"}))))))
+    (is (= #{1 "1"} (set (sorted/round-trip #{1 "1"})))))
+  (binding [*print-dup* true
+            *print-namespace-maps* true]
+    (is (= {:a "x"} (sorted/round-trip {:a "x"})))))
