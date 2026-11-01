@@ -46,6 +46,11 @@
   (testing "metadata stays portable"
     (is (false? (law/admitted? (assoc-in archive [:resource/metadata :fn] (fn [] 1)))))
     (is (false? (law/admitted? (assoc archive :host/fn (fn [] 1))))))
-  (testing "did? is the same predicate the schema uses"
+  (testing "did? is a DID, not a DID URL"
     (is (true? (shape/did? "did:web:axxium.promethean.rest")))
-    (is (false? (shape/did? "did:web:")))))
+    (is (true? (shape/did? "did:web:example.com:user:alice")))
+    (is (true? (shape/did? "did:web:example.com%3A3000")))
+    (is (false? (shape/did? "did:web:")))
+    (is (false? (shape/did? "did:web:example.test#key-1")))
+    (is (false? (shape/did? "did:web:example.test?q=1")))
+    (is (false? (shape/did? "did:web:example.test/path")))))
