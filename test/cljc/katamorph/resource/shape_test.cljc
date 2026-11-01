@@ -43,6 +43,7 @@
     (is (false? (law/admitted? (-> archive
                                    (dissoc :resource/store)
                                    (assoc :resource/location "")))))
+    (is (false? (law/admitted? (assoc archive :resource/store ""))))
     (is (false? (law/admitted? (assoc archive :resource/location 5)))
         "a store does not excuse a location that is not a string or a map"))
   (testing "metadata stays portable"

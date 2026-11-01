@@ -37,6 +37,7 @@
 (deftest keywords-must-round-trip-through-edn
   (is (false? (portable/portable-keyword? (keyword "foo bar"))))
   (is (false? (portable/portable-keyword? (keyword "foo" "/bar"))))
+  (is (false? (portable/portable-keyword? (keyword "archive\u00a0id"))))
   (is (true? (portable/portable-keyword?
               :openplanner.archive/drive:folder:openplanner-archive)))
   (is (false? (portable/portable-edn? {:resource/kind (keyword "foo bar")})))
@@ -49,6 +50,7 @@
 #?(:clj
    (deftest sets-reject-cross-runtime-numeric-twins
      (is (false? (portable/portable-edn? #{1 1.0})))
+     (is (false? (portable/portable-edn? #{[1] [1.0]})))
      (is (true? (portable/portable-edn? #{1 2})))))
 
 #?(:clj
