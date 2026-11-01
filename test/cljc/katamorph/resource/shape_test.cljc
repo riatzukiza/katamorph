@@ -42,7 +42,9 @@
                                    (assoc :resource/store "")))))
     (is (false? (law/admitted? (-> archive
                                    (dissoc :resource/store)
-                                   (assoc :resource/location ""))))))
+                                   (assoc :resource/location "")))))
+    (is (false? (law/admitted? (assoc archive :resource/location 5)))
+        "a store does not excuse a location that is not a string or a map"))
   (testing "metadata stays portable"
     (is (false? (law/admitted? (assoc-in archive [:resource/metadata :fn] (fn [] 1)))))
     (is (false? (law/admitted? (assoc archive :host/fn (fn [] 1))))))
@@ -50,6 +52,9 @@
     (is (true? (shape/did? "did:web:axxium.promethean.rest")))
     (is (true? (shape/did? "did:web:example.com:user:alice")))
     (is (true? (shape/did? "did:web:example.com%3A3000")))
+    (is (true? (shape/did? "did:example:a::b")))
+    (is (true? (shape/did? "did:example::abc")))
+    (is (true? (shape/did? (str "did:web:" (apply str (repeat 8000 "a"))))))
     (is (false? (shape/did? "did:web:")))
     (is (false? (shape/did? "did:web:example.test#key-1")))
     (is (false? (shape/did? "did:web:example.test?q=1")))
