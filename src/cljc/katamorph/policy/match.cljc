@@ -85,7 +85,8 @@
      (if (empty? matches)
        {:action :allow :reason nil :policy nil :matches []}
        (let [action (strongest-action (map :policy/action matches))
-             winner (first (filter #(= action (:policy/action %)) matches))]
+             winner (first (filter #(= action (strongest-action [(:policy/action %)]))
+                                    matches))]
          {:action action
           :reason (:policy/reason winner)
           :policy winner

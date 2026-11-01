@@ -55,9 +55,13 @@
   (is (= :allow (:action (match/evaluate-gates [{:policy/match "x" :policy/action :block}]
                                                {:tool/name "exec"})))
       "a non-map match does not throw and does not match")
-  (is (= :block (:action (match/evaluate-gates [{:policy/match {} :policy/action :deny}]
-                                               {:tool/name "exec"})))
-      "an unknown gate action fails closed"))
+  (let [result (match/evaluate-gates [{:policy/match {}
+                                               :policy/action :deny
+                                               :policy/reason "no such action"}]
+                                              {:tool/name "exec"})]
+    (is (= :block (:action result)) "an unknown gate action fails closed")
+    (is (= "no such action" (:reason result))
+        "the winning gate is the one whose action normalizes to the result")))
 
 (deftest resource-and-action-match
   (is (true? (match/policy-matches? put-gate subject)))
