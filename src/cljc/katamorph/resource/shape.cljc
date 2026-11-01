@@ -93,11 +93,15 @@
    store is also named."
   [resource]
   (let [store (:resource/store resource)
+        store-key? (contains? resource :resource/store)
         store? (or (keyword? store)
                    (and (string? store) (not (str/blank? store))))
-        location? (contains? resource :resource/location)]
-    (and (or (not location?) (location-value? (:resource/location resource)))
-         (or store? (and location? (location-value? (:resource/location resource)))))))
+        location-key? (contains? resource :resource/location)
+        location? (and location-key?
+                       (location-value? (:resource/location resource)))]
+    (and (or (not store-key?) store?)
+         (or (not location-key?) location?)
+         (or store-key? location-key?))))
 
 (def ResourceContract
   [:and

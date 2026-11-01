@@ -56,16 +56,23 @@
               (try (= millis (inst-ms (edn/read-string text)))
                    (catch #?(:clj Exception :cljs :default) _ false))))))
 
+(def ^:private keyword-part
+  "EDN keyword characters. Colon is allowed after the first character.
+   No-break space is not: the ClojureScript reader treats it as whitespace
+   and the JVM reader does not."
+  #"[A-Za-z*+!_'?<>=][A-Za-z0-9*+!_'?$%&=<>.#:-]*")
+
 (defn portable-keyword?
   "A keyword both EDN readers accept.
 
-   The JVM reader accepts `:foo//bar` (a name that starts with `/`). The
-   ClojureScript reader does not. The read-back also excludes a keyword whose
-   printer is not EDN, such as `(keyword \"foo bar\")`."
+   The JVM reader accepts `:foo//bar` and a name containing U+00A0. The
+   ClojureScript reader does not. The part pattern excludes both, and the
+   read-back excludes a keyword whose printer is not EDN."
   [value]
   (and (keyword? value)
-       (not (str/blank? (name value)))
-       (not (str/starts-with? (name value) "/"))
+       (boolean (re-matches keyword-part (name value)))
+       (or (nil? (namespace value))
+           (boolean (re-matches keyword-part (namespace value))))
        (let [text (binding [*print-length* nil
                             *print-level* nil
                             *print-readably* true]
@@ -76,6 +83,17 @@
                   (= (namespace value) (namespace reread))
                   (= (name value) (name reread))))
            (catch #?(:clj Exception :cljs :default) _ false)))))
+
+(defn- as-cljs-number
+  "Numbers as ClojureScript compares them: every number is a double."
+  [value]
+  (cond
+    (number? value) (double value)
+    (map? value) (into {} (map (fn [[k v]] [(as-cljs-number k) (as-cljs-number v)])) value)
+    (set? value) (into #{} (map as-cljs-number) value)
+    (vector? value) (mapv as-cljs-number value)
+    (sequential? value) (into [] (map as-cljs-number) value)
+    :else value))
 
 (defn portable-edn?
   "True when value is data both runtimes can print and clio can canonicalize."
@@ -88,13 +106,8 @@
     (finite-portable-number? value) true
     (vector? value) (every? portable-edn? value)
     (set? value) (and (every? portable-edn? value)
-                      (let [numbers (filter number? value)]
-                        (not (some (fn [n]
-                                     (some #(and (not (identical? n %))
-                                                 (== n %)
-                                                 (not= n %))
-                                           numbers))
-                                   numbers))))
+                      (= (count value)
+                         (count (into #{} (map as-cljs-number) value))))
     (map? value) (every? (fn [[k v]]
                            (and (or (portable-keyword? k) (string? k))
                                 (portable-edn? v)))
