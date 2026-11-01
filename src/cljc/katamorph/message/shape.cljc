@@ -22,9 +22,11 @@
   (boolean (and (string? value) (re-matches uuid-pattern value))))
 
 (defn event-seq?
+  "A clio event seq: integer?, not an integer-valued double, and portable."
   [value]
-  (and (condition/portable-integer? value)
-       (pos? value)))
+  (and (integer? value)
+       (pos? value)
+       (condition/portable-integer? value)))
 
 (defn event-identity-valid?
   "clio.law.event identity, restricted to portable seqs so canonical-form accepts them."

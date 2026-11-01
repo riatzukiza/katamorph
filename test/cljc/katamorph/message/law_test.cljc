@@ -65,7 +65,15 @@
       (is (false? (shape/event-identity-valid? broken)))
       (is (false? (:ok (law/explain-message broken))))))
   (is (false? (:ok (law/explain-message (dissoc page-written :msg/to)))))
-  (is (false? (:ok (law/explain-message (assoc page-written :msg/to "not-a-did"))))))
+  (is (false? (:ok (law/explain-message (assoc page-written :msg/to "not-a-did")))))
+  (testing "an integer-valued double is not a clio seq on the JVM"
+    (let [broken (assoc page-written :event/seq 1.0)]
+      (is (= (clio-event/event-identity-valid? broken)
+             (shape/event-identity-valid? broken)))
+      #?(:clj
+         (do
+           (is (false? (shape/event-identity-valid? broken)))
+           (is (false? (:ok (law/explain-message broken)))))))))
 
 (deftest mailbox-is-the-fold-of-addressed-messages
   (let [log [page-written other page-written]]
