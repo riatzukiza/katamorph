@@ -6,7 +6,9 @@
    Gregorian instant range canonical-form will hash. Admission refuses a value
    here so export does not have to truncate it later."
   (:require [clojure.string :as str]
-            [katamorph.schema.condition :as condition]))
+            [katamorph.schema.condition :as condition]
+            #?(:clj [clojure.edn :as edn]
+               :cljs [cljs.reader :as edn])))
 
 (def min-instant-ms
   "1582-10-15, the earliest instant clio.shape.canonical will hash."
@@ -31,18 +33,36 @@
               (<= min-instant-ms millis max-instant-ms)
               (str/starts-with? text "#inst \"")))))
 
+(defn portable-keyword?
+  "A keyword whose printed form reads back as the same keyword.
+
+   `(keyword \"foo bar\")` is a keyword on the JVM, and its printer does not
+   emit readable EDN. Map keys get the same check."
+  [value]
+  (and (keyword? value)
+       (let [text (binding [*print-length* nil
+                           *print-level* nil]
+                    (pr-str value))]
+         (try
+           (let [reread (edn/read-string text)]
+             (and (keyword? reread)
+                  (= (namespace value) (namespace reread))
+                  (= (name value) (name reread))))
+           (catch #?(:clj Exception :cljs :default) _ false)))))
+
 (defn portable-edn?
   "True when value is data both runtimes can print and clio can canonicalize."
   [value]
   (cond
-    (or (nil? value) (boolean? value) (string? value) (keyword? value)) true
+    (or (nil? value) (boolean? value) (string? value)) true
+    (portable-keyword? value) true
     (uuid? value) true
     (portable-instant? value) true
     (finite-portable-number? value) true
     (vector? value) (every? portable-edn? value)
     (set? value) (every? portable-edn? value)
     (map? value) (every? (fn [[k v]]
-                           (and (or (keyword? k) (string? k))
+                           (and (or (portable-keyword? k) (string? k))
                                 (portable-edn? v)))
                          value)
     :else false))

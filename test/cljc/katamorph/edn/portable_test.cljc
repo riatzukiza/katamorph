@@ -11,6 +11,7 @@
   (is (portable/portable-edn? true))
   (is (portable/portable-edn? "archive"))
   (is (portable/portable-edn? :drive/folder))
+  (is (portable/portable-keyword? :drive/folder))
   (is (portable/portable-edn? 1))
   (is (portable/portable-edn? 1.5))
   (is (portable/portable-edn? #inst "2026-11-01T00:00:00.000Z")))
@@ -32,3 +33,8 @@
   (is (portable/portable-edn? {:a [1 #{:b}] "c" true}))
   (is (false? (portable/portable-edn? {:a (fn [] 1)})))
   (is (false? (portable/portable-edn? [##NaN]))))
+
+(deftest keywords-must-round-trip-through-edn
+  (is (false? (portable/portable-keyword? (keyword "foo bar"))))
+  (is (false? (portable/portable-edn? {:resource/kind (keyword "foo bar")})))
+  (is (false? (portable/portable-edn? {(keyword "foo bar") 1}))))
