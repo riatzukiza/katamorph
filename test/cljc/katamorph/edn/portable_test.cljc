@@ -36,5 +36,21 @@
 
 (deftest keywords-must-round-trip-through-edn
   (is (false? (portable/portable-keyword? (keyword "foo bar"))))
+  (is (false? (portable/portable-keyword? (keyword "foo" "/bar"))))
+  (is (true? (portable/portable-keyword?
+              :openplanner.archive/drive:folder:openplanner-archive)))
   (is (false? (portable/portable-edn? {:resource/kind (keyword "foo bar")})))
   (is (false? (portable/portable-edn? {(keyword "foo bar") 1}))))
+
+(deftest integral-values-stay-inside-the-safe-range
+  (is (false? (portable/portable-edn? 9007199254740992)))
+  (is (true? (portable/portable-edn? 9007199254740991))))
+
+#?(:clj
+   (deftest sets-reject-cross-runtime-numeric-twins
+     (is (false? (portable/portable-edn? #{1 1.0})))
+     (is (true? (portable/portable-edn? #{1 2})))))
+
+#?(:clj
+   (deftest timestamps-are-not-portable-instants
+     (is (false? (portable/portable-instant? (java.sql.Timestamp. 0))))))
