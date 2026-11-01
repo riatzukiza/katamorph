@@ -115,6 +115,16 @@
     (is (= #{:drive/list} (actions-of result :pager)))
     (is (= #{:drive/list :drive/put} (actions-of result :other)))))
 
+(deftest inline-policy-must-be-a-gate
+  (is (true? (:ok (law/explain-grant
+                   (assoc root :grant/policy {:policy/match {:action :drive/put}
+                                              :policy/action :block})))))
+  (is (true? (:ok (law/explain-grant (assoc root :grant/policy :archive/page-out)))))
+  (is (false? (:ok (law/explain-grant (assoc root :grant/policy {:policy/match "x"})))))
+  (is (false? (:ok (law/explain-grant
+                    (assoc root :grant/policy {:policy/match {:tool/name "exec"}
+                                               :policy/action :deny}))))))
+
 (deftest malformed-events-are-refused
   (is (false? (:ok (law/explain-grant (dissoc root :grant/actor)))))
   (is (false? (:ok (law/explain-grant (assoc root :grant/actions [:drive/put :drive/put])))))

@@ -51,7 +51,13 @@
               {:tool/params {:cmd "ls"}})))
   (is (true? (match/policy-matches? {:policy/match {}} {:tool/name "anything"})))
   (is (= :block (:action (match/evaluate-gates [tool-gate] {:tool/name "exec"}))))
-  (is (= :allow (:action (match/evaluate-gates [tool-gate] {:tool/name "read"})))))
+  (is (= :allow (:action (match/evaluate-gates [tool-gate] {:tool/name "read"}))))
+  (is (= :allow (:action (match/evaluate-gates [{:policy/match "x" :policy/action :block}]
+                                               {:tool/name "exec"})))
+      "a non-map match does not throw and does not match")
+  (is (= :block (:action (match/evaluate-gates [{:policy/match {} :policy/action :deny}]
+                                               {:tool/name "exec"})))
+      "an unknown gate action fails closed"))
 
 (deftest resource-and-action-match
   (is (true? (match/policy-matches? put-gate subject)))

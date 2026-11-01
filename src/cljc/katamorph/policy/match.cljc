@@ -8,14 +8,16 @@
 (defn- match-params?
   "Check if all expected param key-value pairs match the actual params.
    If a value is a fn, it's called with the actual value (predicate match).
-   Otherwise, exact equality is required."
+   Otherwise, exact equality is required. A non-map does not match."
   [expected actual]
-  (every? (fn [[k v]]
-            (let [actual-val (get actual k)]
-              (if (fn? v)
-                (v actual-val)
-                (= v actual-val))))
-          expected))
+  (and (map? expected)
+       (map? actual)
+       (every? (fn [[k v]]
+                 (let [actual-val (get actual k)]
+                   (if (fn? v)
+                     (v actual-val)
+                     (= v actual-val))))
+               expected)))
 
 (def resource-match-keys
   #{:resource/kind :resource/id :action})
@@ -27,7 +29,8 @@
    resource act — {:resource/kind keyword :resource/id id :action keyword}"
   [policy subject]
   (let [match (:policy/match policy {})]
-    (every? (fn [[k v]]
+    (and (map? match)
+         (every? (fn [[k v]]
               (cond
                 (= k :tool/name)
                 (= v (:tool/name subject))
@@ -40,7 +43,7 @@
 
                 :else
                 false))
-            match)))
+            match))))
 
 (def ^:private action-severity
   "Numeric severity for policy actions. Higher = stronger."
@@ -52,7 +55,7 @@
 (defn strongest-action
   "Given a seq of action keywords, return the one with highest severity."
   [actions]
-  (let [n (apply max 0 (map #(get action-severity % 0) actions))]
+  (let [n (apply max 0 (map #(get action-severity % 3) actions))]
     (some (fn [[k v]] (when (= v n) k)) action-severity)))
 
 (defn- policy-active?
