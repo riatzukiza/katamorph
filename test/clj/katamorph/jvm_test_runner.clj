@@ -15,7 +15,11 @@
             [katamorph.schema.validation-test]
             [katamorph.workflow.cycle-validation-test]
             [katamorph.workflow.graph-test]
-            [katamorph.workflow.validation-test]))
+            [katamorph.workflow.validation-test]
+            [katamorph.edn.portable-test]
+            [katamorph.edn.sorted-test]
+            [katamorph.edn.clio-round-trip-test]
+            [katamorph.resource.shape-test]))
 
 (def suites
   ['katamorph.condition-test
@@ -33,7 +37,11 @@
    'katamorph.schema.step-dataflow-test
    'katamorph.workflow.validation-test
    'katamorph.workflow.graph-test
-   'katamorph.workflow.cycle-validation-test])
+   'katamorph.workflow.cycle-validation-test
+   'katamorph.edn.portable-test
+   'katamorph.edn.sorted-test
+   'katamorph.edn.clio-round-trip-test
+   'katamorph.resource.shape-test])
 
 (defn -main [& _]
   (let [result (apply test/run-tests suites)]

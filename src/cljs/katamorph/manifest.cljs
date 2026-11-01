@@ -51,7 +51,8 @@
    [:provider :provider/id]
    [:document :document/id]
    [:garden :garden/id]
-   [:publication :publication/id]])
+   [:publication :publication/id]
+   [:resource :resource/id]])
 
 (def kind->id-key
   (into {} kind-id-keys))

@@ -1,0 +1,9 @@
+{:namespace :openplanner.archive
+ :resources
+ [{:resource/id "drive:folder:openplanner-archive"
+   :resource/kind :drive/folder
+   :resource/owner "did:web:axxium.promethean.rest"
+   :resource/store :axxium/drive
+   :resource/location "drive://err/OpenPlanner-Archive"
+   :resource/metadata {:append-only true
+                       :format :edn}}]}

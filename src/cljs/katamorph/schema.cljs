@@ -12,6 +12,7 @@
   (:require [malli.core :as m]
             [malli.error :as me]
             [malli.transform :as mt]
+            [katamorph.access.registry :as access]
             [katamorph.schema.action :as action]
             [katamorph.schema.step :as step]))
 
@@ -668,7 +669,9 @@
 
 (def registry
   "Complete schema registry. Keys match :contract/kind values."
-  {;; Eval primitives
+  (merge
+   access/registry
+   {;; Eval primitives
    :unified/eval-node          EvalNode
    :unified/policy             PolicyContract
    :unified/policy-match       PolicyMatch
@@ -714,7 +717,7 @@
    :cms-template-registry CmsContract
 
    ;; Data ingestion (knoxx)
-   :ingest_source IngestSourceContract})
+   :ingest_source IngestSourceContract}))
 
 ;; ── Kind inference ────────────────────────────────────────────────────────────
 
@@ -740,6 +743,7 @@
     (contains? value :generator/id)           :generator
     (contains? value :schedule/id)            :schedule
     (contains? value :workflow/id)            :workflow
+    (contains? value :resource/id)            :resource
     (contains? value :source-mode/id)         :source-mode
     (contains? value :runtime-feature/id)     :runtime-feature
     (contains? value :parent-agent)           :sub-agent

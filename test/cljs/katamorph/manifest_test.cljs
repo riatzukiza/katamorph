@@ -100,6 +100,19 @@
      :publication/path "/translation-pipeline"
      :translation/review :required}]})
 
+(deftest resource-kind-registers-by-id
+  (let [entry {:resource/id "drive:folder:openplanner-archive"
+               :resource/kind :drive/folder
+               :resource/owner "did:web:axxium.promethean.rest"
+               :resource/store :axxium/drive}
+        defs (m/namespace-file-definitions
+              {:namespace :openplanner.archive
+               :resources [entry]})]
+    (is (= [:resource] (m/entry-kinds entry)))
+    (is (= :resource (:resource/kind (first defs))))
+    (is (= :openplanner.archive/drive:folder:openplanner-archive
+           (:resource/qualified-id (:resource/definition (first defs)))))))
+
 (deftest document-garden-publication-kinds-register-test
   (testing "entry-kinds recognizes each new kind's id key"
     (is (= [:document] (m/entry-kinds (first (:resources knoxx-docs-file)))))
