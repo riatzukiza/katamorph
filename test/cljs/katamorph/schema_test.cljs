@@ -224,7 +224,22 @@
     (is (some? (schema/schema-for :resource)))
     (is (= :resource (schema/infer-contract-class resource)))
     (is (:ok (schema/validate :resource resource)))
-    (is (not (:ok (schema/validate :resource (dissoc resource :resource/owner)))))))
+    (is (not (:ok (schema/validate :resource (dissoc resource :resource/owner)))))
+    (is (:ok (schema/validate :grant
+                              {:grant/id :pager-put
+                               :grant/actor "did:web:openplanner-pager.promethean.rest"
+                               :grant/resource "drive:folder:openplanner-archive"
+                               :grant/actions [:drive/put]})))
+    (is (not (:ok (schema/validate :grant
+                                   {:grant/id :pager-put
+                                    :grant/actions [:drive/put]}))))
+    (is (:ok (schema/validate :revoke
+                              {:revoke/id :stop
+                               :revoke/actor "did:web:openplanner-pager.promethean.rest"
+                               :revoke/resource "drive:folder:openplanner-archive"
+                               :revoke/actions [:drive/put]
+                               :revoke/at #inst "2026-12-01T00:00:00.000Z"})))
+    (is (= :revoke (schema/infer-contract-class {:revoke/id :stop})))))
 
 (deftest workflow-kind-is-registered
   (is (some? (schema/schema-for :workflow)))

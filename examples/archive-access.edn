@@ -6,4 +6,17 @@
    :resource/store :axxium/drive
    :resource/location "drive://err/OpenPlanner-Archive"
    :resource/metadata {:append-only true
-                       :format :edn}}]}
+                       :format :edn}}
+
+  {:grant/id :pager-put
+   :grant/actor "did:web:openplanner-pager.promethean.rest"
+   :grant/resource "drive:folder:openplanner-archive"
+   :grant/actions [:drive/put :drive/list]
+   :grant/at #inst "2026-11-01T00:00:00.000-00:00"
+   :grant/expires #inst "2027-01-01T00:00:00.000-00:00"}
+
+  {:revoke/id :pager-put-stop
+   :revoke/actor "did:web:openplanner-pager.promethean.rest"
+   :revoke/resource "drive:folder:openplanner-archive"
+   :revoke/actions [:drive/put]
+   :revoke/at #inst "2026-12-01T00:00:00.000-00:00"}]}

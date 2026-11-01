@@ -20,8 +20,8 @@
 (deftest archive-access-resource-is-a-valid-manifest
   (is (= {:path "examples/archive-access.edn"
           :namespace :openplanner.archive
-          :resources 1
-          :kinds [:resource]}
+          :resources 3
+          :kinds [:resource :grant :revoke]}
          (examples/example-report "examples/archive-access.edn"))))
 
 (deftest ^:async hello-world-resolves-and-executes-an-edn-action

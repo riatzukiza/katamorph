@@ -48,7 +48,9 @@
    {:id :registry/workflows :kind :workflow}
    {:id :registry/schedules :kind :schedule}
    {:id :registry/sources :kind :source}
-   {:id :registry/resources :kind :resource}])
+   {:id :registry/resources :kind :resource}
+   {:id :registry/grants :kind :grant}
+   {:id :registry/revokes :kind :revoke}])
 
 (defn make-registry
   [{:keys [id kind]}]
@@ -73,6 +75,8 @@
 (def schedules-registry (get registries-by-kind :schedule))
 (def sources-registry (get registries-by-kind :source))
 (def resources-registry (get registries-by-kind :resource))
+(def grants-registry (get registries-by-kind :grant))
+(def revokes-registry (get registries-by-kind :revoke))
 
 (defn registry
   [resource-kind]

@@ -52,7 +52,9 @@
    [:document :document/id]
    [:garden :garden/id]
    [:publication :publication/id]
-   [:resource :resource/id]])
+   [:resource :resource/id]
+   [:grant :grant/id]
+   [:revoke :revoke/id]])
 
 (def kind->id-key
   (into {} kind-id-keys))
