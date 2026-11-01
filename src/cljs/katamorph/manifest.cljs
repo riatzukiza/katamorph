@@ -54,7 +54,10 @@
    [:publication :publication/id]
    [:resource :resource/id]
    [:grant :grant/id]
-   [:revoke :revoke/id]])
+   [:revoke :revoke/id]
+   [:message :message/id]
+   [:mailbox :mailbox/id]
+   [:channel :channel/id]])
 
 (def kind->id-key
   (into {} kind-id-keys))
