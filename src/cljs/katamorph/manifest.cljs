@@ -57,7 +57,8 @@
    [:revoke :revoke/id]
    [:message :message/id]
    [:mailbox :mailbox/id]
-   [:channel :channel/id]])
+   [:channel :channel/id]
+   [:policy-gate :policy-gate/id]])
 
 (def kind->id-key
   (into {} kind-id-keys))

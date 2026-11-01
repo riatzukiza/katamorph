@@ -21,7 +21,8 @@
             [katamorph.edn.clio-round-trip-test]
             [katamorph.resource.shape-test]
             [katamorph.grant.law-test]
-            [katamorph.message.law-test]))
+            [katamorph.message.law-test]
+            [katamorph.policy.match-test]))
 
 (def suites
   ['katamorph.condition-test
@@ -45,7 +46,8 @@
    'katamorph.edn.clio-round-trip-test
    'katamorph.resource.shape-test
    'katamorph.grant.law-test
-   'katamorph.message.law-test])
+   'katamorph.message.law-test
+   'katamorph.policy.match-test])
 
 (defn -main [& _]
   (let [result (apply test/run-tests suites)]

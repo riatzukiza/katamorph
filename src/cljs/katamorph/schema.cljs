@@ -13,6 +13,7 @@
             [malli.error :as me]
             [malli.transform :as mt]
             [katamorph.access.registry :as access]
+            [katamorph.policy.shape :as policy-shape]
             [katamorph.schema.action :as action]
             [katamorph.schema.step :as step]))
 
@@ -42,12 +43,9 @@
    [:eval/target {:optional true} :keyword]
    [:eval/forms [:vector :any]]])
 
-;; ── Policy match (eta-mu v2 heritage) ─────────────────────────────────────────
+;; ── Policy match (eta-mu v2 heritage, plus resource acts) ─────────────────────
 
-(def PolicyMatch
-  [:map
-   [:tool/name   {:optional true} :string]
-   [:tool/params {:optional true} [:map-of :keyword :any]]])
+(def PolicyMatch policy-shape/PolicyMatch)
 
 ;; ── Fulfillment match (eta-mu v2 heritage) ────────────────────────────────────
 
@@ -749,6 +747,7 @@
     (contains? value :message/id)             :message
     (contains? value :mailbox/id)             :mailbox
     (contains? value :channel/id)             :channel
+    (contains? value :policy-gate/id)         :policy-gate
     (contains? value :source-mode/id)         :source-mode
     (contains? value :runtime-feature/id)     :runtime-feature
     (contains? value :parent-agent)           :sub-agent
