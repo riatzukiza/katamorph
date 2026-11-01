@@ -19,6 +19,8 @@
   [value]
   (binding [*print-length* nil
             *print-level* nil
+            *print-dup* false
+            *print-namespace-maps* false
             *print-readably* true]
     (pr-str value)))
 
