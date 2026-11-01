@@ -234,16 +234,21 @@
    lapse."
   [events at]
   (let [{:keys [grants revokes errors]} (index events)
-        revoked (reduce (fn [revoked {:keys [event targets]}]
-                          (if (revoke-due? event at)
-                            (apply-revoke revoked grants event targets)
-                            revoked))
-                        {}
-                        revokes)]
-    {:ok (empty? errors)
-     :errors errors
-     :at at
-     :grants (present grants (residuals grants revoked at))}))
+        at-error (when-not (portable/portable-instant? at)
+                   {:law/id :grant/at})
+        errors (cond-> errors at-error (conj at-error))]
+    (if at-error
+      {:ok false :errors errors :at at :grants []}
+      (let [revoked (reduce (fn [revoked {:keys [event targets]}]
+                              (if (revoke-due? event at)
+                                (apply-revoke revoked grants event targets)
+                                revoked))
+                            {}
+                            revokes)]
+        {:ok (empty? errors)
+         :errors errors
+         :at at
+         :grants (present grants (residuals grants revoked at))}))))
 
 (defn law-ids
   [result]
