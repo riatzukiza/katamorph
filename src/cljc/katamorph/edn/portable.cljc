@@ -18,30 +18,57 @@
   "Last millisecond of year 9999, clio's latest readable EDN instant."
   253402300799999)
 
+(defn- integral-number?
+  [value]
+  (or (integer? value)
+      #?(:clj (and (instance? Double value)
+                   (== value (Math/rint (double value))))
+         :cljs false)))
+
 (defn finite-portable-number?
+  "Finite, and an integral value must sit in the safe-integer range on both hosts."
   [value]
   (and (condition/portable-number? value)
-       (< ##-Inf value ##Inf)))
+       (< ##-Inf value ##Inf)
+       (or (not (integral-number? value))
+           (condition/portable-integer? value))))
+
+(defn- preserved-instant?
+  "java.util.Date and a CLJS date. A Timestamp prints nanoseconds the #inst reader drops."
+  [value]
+  #?(:clj (and (instance? java.util.Date value)
+               (not (instance? java.sql.Timestamp value)))
+     :cljs (inst? value)))
 
 (defn portable-instant?
-  "A standard #inst whose millisecond value sits in clio's Gregorian range."
+  "A standard #inst whose millisecond value sits in clio's Gregorian range
+   and reads back as the same millisecond."
   [value]
-  (and (inst? value)
+  (and (preserved-instant? value)
        (let [millis (inst-ms value)
-             text (pr-str value)]
+             text (binding [*print-length* nil
+                            *print-level* nil
+                            *print-readably* true]
+                    (pr-str value))]
          (and (number? millis)
               (<= min-instant-ms millis max-instant-ms)
-              (str/starts-with? text "#inst \"")))))
+              (str/starts-with? text "#inst \"")
+              (try (= millis (inst-ms (edn/read-string text)))
+                   (catch #?(:clj Exception :cljs :default) _ false))))))
 
 (defn portable-keyword?
-  "A keyword whose printed form reads back as the same keyword.
+  "A keyword both EDN readers accept.
 
-   `(keyword \"foo bar\")` is a keyword on the JVM, and its printer does not
-   emit readable EDN. Map keys get the same check."
+   The JVM reader accepts `:foo//bar` (a name that starts with `/`). The
+   ClojureScript reader does not. The read-back also excludes a keyword whose
+   printer is not EDN, such as `(keyword \"foo bar\")`."
   [value]
   (and (keyword? value)
+       (not (str/blank? (name value)))
+       (not (str/starts-with? (name value) "/"))
        (let [text (binding [*print-length* nil
-                           *print-level* nil]
+                            *print-level* nil
+                            *print-readably* true]
                     (pr-str value))]
          (try
            (let [reread (edn/read-string text)]
@@ -60,7 +87,14 @@
     (portable-instant? value) true
     (finite-portable-number? value) true
     (vector? value) (every? portable-edn? value)
-    (set? value) (every? portable-edn? value)
+    (set? value) (and (every? portable-edn? value)
+                      (let [numbers (filter number? value)]
+                        (not (some (fn [n]
+                                     (some #(and (not (identical? n %))
+                                                 (== n %)
+                                                 (not= n %))
+                                           numbers))
+                                   numbers))))
     (map? value) (every? (fn [[k v]]
                            (and (or (portable-keyword? k) (string? k))
                                 (portable-edn? v)))

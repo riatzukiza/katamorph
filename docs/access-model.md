@@ -43,6 +43,11 @@ the consumer computed from clio's canonical form.
 
 ## Morphisms
 
+The names are the model. The functions land with the shapes: resource
+admission, then `index` and `effective`, then `mailbox` and
+`channel-resource`, then `decide`. A review of one pull request may see a
+name here before that function is in its diff.
+
 - `admit-resource : Value → Resource | error`
 - `admit-grant : Grant × Grants → Grants | error` — defined only when the grant
   narrows its parent, or when it is a root grant.

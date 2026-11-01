@@ -18,7 +18,8 @@
    and a sorted set would then drop one of them."
   [value]
   (binding [*print-length* nil
-            *print-level* nil]
+            *print-level* nil
+            *print-readably* true]
     (pr-str value)))
 
 (defn order-value

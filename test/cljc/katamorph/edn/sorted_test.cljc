@@ -24,7 +24,10 @@
 
 (deftest export-ignores-print-truncation
   (binding [*print-length* 1
-            *print-level* 1]
+            *print-level* 1
+            *print-readably* false]
     (is (= (sorted/export-edn #{[1 2] [1 3]})
            (sorted/export-edn #{[1 3] [1 2]})))
-    (is (= #{[1 2] [1 3]} (set (sorted/round-trip #{[1 2] [1 3]}))))))
+    (is (= #{[1 2] [1 3]} (set (sorted/round-trip #{[1 2] [1 3]}))))
+    (is (= {:a "x"} (sorted/round-trip {:a "x"})))
+    (is (= #{1 "1"} (set (sorted/round-trip #{1 "1"}))))))

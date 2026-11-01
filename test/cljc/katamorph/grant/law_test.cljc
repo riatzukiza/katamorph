@@ -36,6 +36,13 @@
   [result id]
   (set (:grant/actions (first (filter #(= id (:grant/id %)) (:grants result))))))
 
+(deftest an-unreadable-instant-is-not-a-denial
+  (let [result (law/effective [root] nil)]
+    (is (false? (:ok result)))
+    (is (contains? (law/law-ids result) :grant/at))
+    (is (empty? (:grants result))))
+  (is (contains? (law/law-ids (law/effective [root] 0)) :grant/at)))
+
 (deftest root-grant-is-live-inside-its-window
   (let [before (law/effective [root] #inst "2026-10-01T00:00:00.000Z")
         during (law/effective [root] t1)
