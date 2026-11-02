@@ -19,7 +19,8 @@
             [katamorph.edn.portable-test]
             [katamorph.edn.sorted-test]
             [katamorph.edn.clio-round-trip-test]
-            [katamorph.resource.shape-test]))
+            [katamorph.resource.shape-test]
+            [katamorph.grant.law-test]))
 
 (def suites
   ['katamorph.condition-test
@@ -41,7 +42,8 @@
    'katamorph.edn.portable-test
    'katamorph.edn.sorted-test
    'katamorph.edn.clio-round-trip-test
-   'katamorph.resource.shape-test])
+   'katamorph.resource.shape-test
+   'katamorph.grant.law-test])
 
 (defn -main [& _]
   (let [result (apply test/run-tests suites)]

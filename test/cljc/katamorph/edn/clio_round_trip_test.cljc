@@ -35,3 +35,26 @@
            (canonical/canonical-form imported)))
     (is (= (canonical/canonical-form archive)
            (clio-edn/read-one (canonical/canonical-edn archive))))))
+
+(def grant
+  {:grant/id :pager-put
+   :grant/actor "did:web:openplanner-pager.promethean.rest"
+   :grant/resource "drive:folder:openplanner-archive"
+   :grant/actions [:drive/put :drive/list]
+   :grant/at #inst "2026-11-01T00:00:00.000Z"
+   :grant/expires #inst "2027-01-01T00:00:00.000Z"})
+
+(def revoke
+  {:revoke/id :pager-put-stop
+   :revoke/actor "did:web:openplanner-pager.promethean.rest"
+   :revoke/resource "drive:folder:openplanner-archive"
+   :revoke/actions [:drive/put]
+   :revoke/at #inst "2026-12-01T00:00:00.000Z"})
+
+(deftest grant-and-revoke-round-trip-through-clio
+  (doseq [value [grant revoke]]
+    (let [text (sorted/export-edn value)
+          imported (clio-edn/read-one text)]
+      (is (= value imported))
+      (is (= (canonical/canonical-form value)
+             (canonical/canonical-form imported))))))

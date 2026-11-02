@@ -744,6 +744,8 @@
     (contains? value :schedule/id)            :schedule
     (contains? value :workflow/id)            :workflow
     (contains? value :resource/id)            :resource
+    (contains? value :grant/id)               :grant
+    (contains? value :revoke/id)              :revoke
     (contains? value :source-mode/id)         :source-mode
     (contains? value :runtime-feature/id)     :runtime-feature
     (contains? value :parent-agent)           :sub-agent
