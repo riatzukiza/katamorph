@@ -114,3 +114,15 @@
     (is (= :grant/absent (:reason ungranted)))
     (is (= :block (:action expired)))
     (is (= :grant/absent (:reason expired)))))
+
+(deftest a-dropped-revoke-does-not-leave-the-grant-in-force
+  (let [bad {:revoke/id :bad
+             :revoke/actor "not-a-did"
+             :revoke/resource "drive:folder:openplanner-archive"
+             :revoke/at #inst "2026-11-01T00:00:00.000Z"}
+        result (decide/decide {:events [grant bad]
+                               :gates []
+                               :subject subject
+                               :at #inst "2026-11-02T00:00:00.000Z"})]
+    (is (= :block (:action result)))
+    (is (= :revoke/invalid (:reason result)))))

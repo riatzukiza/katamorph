@@ -139,6 +139,11 @@
   (is (false? (:ok (law/explain-revoke {:revoke/id :x
                                         :revoke/actor (:grant/actor root)
                                         :revoke/resource (:grant/resource root)}))))
+  (is (contains? (law/law-ids (law/index [root {:revoke/id :bad
+                                                :revoke/actor "not-a-did"
+                                                :revoke/resource (:grant/resource root)
+                                                :revoke/at t0}]))
+                 :revoke/invalid))
   (is (= #{:grant/duplicate}
          (law/law-ids (law/index [root root]))))
   (is (= #{:grant/window}

@@ -214,7 +214,9 @@
                      (conj revoke-ids id)
                      revoke-ids)
                    (cond
-                     (not (:ok shape)) (into errors (:errors shape))
+                     (not (:ok shape))
+                     (into (conj errors {:law/id :revoke/invalid :revoke/id id})
+                           (:errors shape))
                      duplicate? (conj errors {:law/id :revoke/duplicate :revoke/id id})
                      :else errors)))
 
