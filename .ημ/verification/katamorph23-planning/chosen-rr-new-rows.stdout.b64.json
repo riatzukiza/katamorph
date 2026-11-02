@@ -1,0 +1,7 @@
+{
+  "format": "lossless-base64-capture-v1",
+  "source": "chosen-rr-new-rows.stdout",
+  "decoded_size": 246,
+  "decoded_sha256": "5a1eab3d0b662f18fba3f14bf3d4c59f02d2eacca01057a3a9866f72e42f7849",
+  "base64": "ezpjaG9zZW4tYXBpL3JldmlzaW9uICIxNTQ0NDBmM2M5OTdhYTkyMDgxOTRiYmE1OWI1ZWRiZWYzNjU0Zjc4IiwgOm5ldy1yb3dzIDIsIDpuZXctcm93LWVycm9ycyBbW10gW11dLCA6b2xkLXByb2Nlc3Mtcm93cyA0NCwgOm9sZC1wcmVmaXgvcHJlc2VydmVkIHRydWUsIDpvbGQtZ2xvYmFsLW5pbmUta2V5cyB0cnVlLCA6Y29uc3VtZXItc2NvcGUgOm5ldy1yb3dzLW9ubHksIDpub3QtcmVwb3NpdG9yeS1hZG1pc3Npb24gdHJ1ZX0K"
+}
