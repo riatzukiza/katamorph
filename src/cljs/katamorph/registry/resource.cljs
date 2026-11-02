@@ -50,7 +50,10 @@
    {:id :registry/sources :kind :source}
    {:id :registry/resources :kind :resource}
    {:id :registry/grants :kind :grant}
-   {:id :registry/revokes :kind :revoke}])
+   {:id :registry/revokes :kind :revoke}
+   {:id :registry/messages :kind :message}
+   {:id :registry/mailboxes :kind :mailbox}
+   {:id :registry/channels :kind :channel}])
 
 (defn make-registry
   [{:keys [id kind]}]
@@ -77,6 +80,9 @@
 (def resources-registry (get registries-by-kind :resource))
 (def grants-registry (get registries-by-kind :grant))
 (def revokes-registry (get registries-by-kind :revoke))
+(def messages-registry (get registries-by-kind :message))
+(def mailboxes-registry (get registries-by-kind :mailbox))
+(def channels-registry (get registries-by-kind :channel))
 
 (defn registry
   [resource-kind]

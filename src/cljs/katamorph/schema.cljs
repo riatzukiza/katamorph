@@ -746,6 +746,9 @@
     (contains? value :resource/id)            :resource
     (contains? value :grant/id)               :grant
     (contains? value :revoke/id)              :revoke
+    (contains? value :message/id)             :message
+    (contains? value :mailbox/id)             :mailbox
+    (contains? value :channel/id)             :channel
     (contains? value :source-mode/id)         :source-mode
     (contains? value :runtime-feature/id)     :runtime-feature
     (contains? value :parent-agent)           :sub-agent
