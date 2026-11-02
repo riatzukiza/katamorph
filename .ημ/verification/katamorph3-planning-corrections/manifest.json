@@ -1,0 +1,52 @@
+[
+  {
+    "format": "redacted-native-capture-v1",
+    "source": "comments.stdout",
+    "private_raw_source": "/home/err/.codex/parallel-goal/child-prs-20261006/katamorph3-terminal-assessment-20261006/comments.stdout",
+    "original_size": 23734,
+    "original_sha256": "ecd2f7653c14cffce7a564a5cf2e7af4a32cebb278978dd648582f5e26252fa5",
+    "redacted_size": 22231,
+    "redacted_sha256": "8bcf36a0fc16154cf4a419e03356ea2a8a4f1de0cb43dc333d221a8ed9009946",
+    "wrapper": "comments.stdout.redacted.json"
+  },
+  {
+    "format": "redacted-native-capture-v1",
+    "source": "reviews.stdout",
+    "private_raw_source": "/home/err/.codex/parallel-goal/child-prs-20261006/katamorph3-terminal-assessment-20261006/reviews.stdout",
+    "original_size": 6002,
+    "original_sha256": "d6016fe573b2db4839c03d825d9a198bad2b7634710727cddccef57f76e17d83",
+    "redacted_size": 5585,
+    "redacted_sha256": "448a5fa1d76b76a9d0cc8ef2f67b8687eefb54b435e4a22586575ca708c6956c",
+    "wrapper": "reviews.stdout.redacted.json"
+  },
+  {
+    "format": "redacted-native-capture-v1",
+    "source": "inlines.stdout",
+    "private_raw_source": "/home/err/.codex/parallel-goal/child-prs-20261006/katamorph3-terminal-assessment-20261006/inlines.stdout",
+    "original_size": 14955,
+    "original_sha256": "a8c6ec7dba2e35dc4b5d2f658d1a58638fc16d22458f46403f783e16e9b93145",
+    "redacted_size": 14267,
+    "redacted_sha256": "23862ed70a48919c224079726848c3975d5eb76a4707e7d7384825d385e2655e",
+    "wrapper": "inlines.stdout.redacted.json"
+  },
+  {
+    "format": "redacted-native-capture-v1",
+    "source": "threads.stdout",
+    "private_raw_source": "/home/err/.codex/parallel-goal/child-prs-20261006/katamorph3-terminal-assessment-20261006/threads.stdout",
+    "original_size": 5146,
+    "original_sha256": "cb8a8a507e1c717ecff38a412c342cb197060b59c951e7283f2a7e7cc06f5cbf",
+    "redacted_size": 6168,
+    "redacted_sha256": "d697c436acaa11d8a20d5cceac29c6621d3ffbc0452abe7bf180c9900017f649",
+    "wrapper": "threads.stdout.redacted.json"
+  },
+  {
+    "format": "redacted-native-capture-v1",
+    "source": "assessment.json",
+    "private_raw_source": "/home/err/.codex/parallel-goal/child-prs-20261006/katamorph3-terminal-assessment-20261006/assessment.json",
+    "original_size": 4611,
+    "original_sha256": "5e7394f0528e2e54d5e8730499a66afd3be1ce2e58aee8052077b75c0840041e",
+    "redacted_size": 4445,
+    "redacted_sha256": "fec53859e7f5ac1abbc7ef6d3b3e09484421762d88d3a2a46e92c8b7ca25338b",
+    "wrapper": "assessment.json.redacted.json"
+  }
+]

@@ -1,0 +1,44 @@
+[
+  {
+    "wrapper": "correction-law-readback.capture.json",
+    "capture_count": 3,
+    "sources": [
+      {
+        "source": "correction-law-readback.stdout",
+        "decoded_size": 4262,
+        "decoded_sha256": "d2b888497c6ab6a02ff86a9bcfbb97275f7a630c0c4555e9ab4282d68f927206"
+      },
+      {
+        "source": "correction-law-readback.stderr",
+        "decoded_size": 0,
+        "decoded_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+      },
+      {
+        "source": "correction-law-readback.meta.json",
+        "decoded_size": 230,
+        "decoded_sha256": "6b74ce96fe502d0938af77cf03fc7104d89395dc86bc6bded6d29dda71b8ed09"
+      }
+    ]
+  },
+  {
+    "wrapper": "correction-proof-readback.capture.json",
+    "capture_count": 3,
+    "sources": [
+      {
+        "source": "correction-proof-readback.stdout",
+        "decoded_size": 4763,
+        "decoded_sha256": "e1bbf97d1a411ef3b4623f5f5f7b392175defac248453beec67618ceb2d8f05d"
+      },
+      {
+        "source": "correction-proof-readback.stderr",
+        "decoded_size": 0,
+        "decoded_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+      },
+      {
+        "source": "correction-proof-readback.meta.json",
+        "decoded_size": 230,
+        "decoded_sha256": "345dbf75566fcdf5f40355f65fbc4a2cb3067ece2583023a2f9a698a12b5b884"
+      }
+    ]
+  }
+]
