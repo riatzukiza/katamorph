@@ -53,7 +53,8 @@
    {:id :registry/revokes :kind :revoke}
    {:id :registry/messages :kind :message}
    {:id :registry/mailboxes :kind :mailbox}
-   {:id :registry/channels :kind :channel}])
+   {:id :registry/channels :kind :channel}
+   {:id :registry/policy-gates :kind :policy-gate}])
 
 (defn make-registry
   [{:keys [id kind]}]
@@ -83,6 +84,7 @@
 (def messages-registry (get registries-by-kind :message))
 (def mailboxes-registry (get registries-by-kind :mailbox))
 (def channels-registry (get registries-by-kind :channel))
+(def policy-gates-registry (get registries-by-kind :policy-gate))
 
 (defn registry
   [resource-kind]

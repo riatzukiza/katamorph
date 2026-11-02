@@ -6,6 +6,7 @@
    same coordinates plus the instant it takes effect. :revoke/expires selects
    grants with that expiry; it does not restore authority."
   (:require [katamorph.edn.portable :as portable]
+            [katamorph.policy.shape :as policy]
             [katamorph.resource.shape :as resource]))
 
 (def Id
@@ -32,8 +33,14 @@
       (and (vector? actions) (pos? (count actions))))]])
 
 (def PolicyRef
-  "A gate id, or an inline gate map. The fold records it and does not apply it."
-  [:or :keyword :string [:map {:closed false}]])
+  "A gate id, or an inline gate. decide evaluates a map. A keyword or string
+   is a reference the caller resolves into the gate list."
+  [:or :keyword :string
+   [:map
+    [:policy/match policy/PolicyMatch]
+    [:policy/action [:enum :block :warn :note :allow]]
+    [:policy/reason {:optional true} :string]
+    [:policy/ttl-ms {:optional true} :int]]])
 
 (def Instant
   [:fn {:error/message "expected a portable #inst"}

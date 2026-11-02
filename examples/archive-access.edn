@@ -40,4 +40,11 @@
   {:channel/id :notices
    :channel/owner "did:web:err.promethean.rest"
    :channel/store :axxium/mbox
-   :channel/metadata {:kind :msg/channel}}]}
+   :channel/metadata {:kind :msg/channel}}
+
+  {:policy-gate/id :refuse-delete
+   :policy/match {:resource/kind :drive/folder
+                  :resource/id "drive:folder:openplanner-archive"
+                  :action :drive/delete}
+   :policy/action :block
+   :policy/reason "archive pages are create-only"}]}

@@ -122,6 +122,16 @@
     (is (= #{:drive/list} (actions-of result :pager)))
     (is (= #{:drive/list :drive/put} (actions-of result :other)))))
 
+(deftest inline-policy-must-be-a-gate
+  (is (true? (:ok (law/explain-grant
+                   (assoc root :grant/policy {:policy/match {:action :drive/put}
+                                              :policy/action :block})))))
+  (is (true? (:ok (law/explain-grant (assoc root :grant/policy :archive/page-out)))))
+  (is (false? (:ok (law/explain-grant (assoc root :grant/policy {:policy/match "x"})))))
+  (is (false? (:ok (law/explain-grant
+                    (assoc root :grant/policy {:policy/match {:tool/name "exec"}
+                                               :policy/action :deny}))))))
+
 (deftest malformed-events-are-refused
   (is (false? (:ok (law/explain-grant (dissoc root :grant/actor)))))
   (is (false? (:ok (law/explain-grant (assoc root :grant/actions [:drive/put :drive/put])))))
@@ -129,6 +139,11 @@
   (is (false? (:ok (law/explain-revoke {:revoke/id :x
                                         :revoke/actor (:grant/actor root)
                                         :revoke/resource (:grant/resource root)}))))
+  (is (contains? (law/law-ids (law/index [root {:revoke/id :bad
+                                                :revoke/actor "not-a-did"
+                                                :revoke/resource (:grant/resource root)
+                                                :revoke/at t0}]))
+                 :revoke/invalid))
   (is (= #{:grant/duplicate}
          (law/law-ids (law/index [root root]))))
   (is (= #{:grant/window}
