@@ -92,6 +92,14 @@ passing fixture as proof. The future change must also run the actual CI entry
 point `npm run lint:kondo` (which includes `examples/cljs`), not just the
 five-root baseline command.
 
+In the future disposable checkout, use `git check-ignore` to verify both the
+existing cache-name example `.lsp/.cache/db.transit.json` and a future name
+such as `.lsp/new.generated` are ignored. Also verify a representative outside
+control such as `src/cljc/katamorph/action/binding_schema.cljc` is not ignored,
+is tracked with `git ls-files`, and is included in the lint run. Record command
+results; these are acceptance checks for the proposed policy, not current
+claims that the ignore rule exists.
+
 A malformed data-schema control has a different expected outcome from a
 function-call arity/type control. First demonstrate that the selected tool can
 actually identify that schema error; if it cannot, stop and seek a reviewed
