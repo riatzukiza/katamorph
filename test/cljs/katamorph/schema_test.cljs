@@ -215,6 +215,17 @@
                   :step/with {:persist-credentials false}}
                  {:step/run "pnpm lint"}]}]})
 
+(deftest validate-resource-contract
+  (let [resource {:resource/id "drive:folder:openplanner-archive"
+                  :resource/kind :drive/folder
+                  :resource/owner "did:web:axxium.promethean.rest"
+                  :resource/store :axxium/drive
+                  :resource/metadata {:append-only true}}]
+    (is (some? (schema/schema-for :resource)))
+    (is (= :resource (schema/infer-contract-class resource)))
+    (is (:ok (schema/validate :resource resource)))
+    (is (not (:ok (schema/validate :resource (dissoc resource :resource/owner)))))))
+
 (deftest workflow-kind-is-registered
   (is (some? (schema/schema-for :workflow)))
   (is (= :workflow (schema/infer-contract-class {:contract/kind :workflow})))

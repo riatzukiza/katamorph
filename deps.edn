@@ -10,8 +10,13 @@
   {:extra-paths ["test/cljc" "test/cljs" "examples/cljs"]
    :extra-deps
    {org.clojure/clojurescript {:mvn/version "1.12.145"}
-    thheller/shadow-cljs      {:mvn/version "3.4.11"}}}
+    thheller/shadow-cljs      {:mvn/version "3.4.11"}
+    ;; Pinned to merged open-hax/clio main. Tests call canonical-form.
+    ;; The library path above does not depend on clio.
+    io.github.open-hax/clio   {:git/sha "9b14cda67d76639ee33aa90eff3caf10dd120d7c"}}}
 
   :test-jvm
   {:extra-paths ["test/cljc" "test/clj"]
+   :extra-deps
+   {io.github.open-hax/clio {:git/sha "9b14cda67d76639ee33aa90eff3caf10dd120d7c"}}
    :main-opts ["-m" "katamorph.jvm-test-runner"]}}}
