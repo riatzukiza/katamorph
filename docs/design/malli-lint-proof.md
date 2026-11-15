@@ -67,6 +67,39 @@ blocker and review integration/breakdown. Do not invent a blanket vector
 validator, suppress all unresolved symbols or add a general schema engine to
 obtain green counts.
 
+## Source-bound experiment plan
+
+Use `src/cljc/katamorph/action/binding_schema.cljc` as the first data-schema
+control: `ActionBinding` is a `:map` referring to `action/ContractId`, and
+`valid?` passes it to `m/validate`. Compare that with the composed forms in
+`src/cljc/katamorph/schema/action.cljc` and the CLJS registry and validation
+call in `src/cljs/katamorph/schema.cljs`. Inventory actual declaration and
+call forms across all lint roots before selecting fixtures; record paths and
+forms, including any discovered function-schema annotations. The current
+examples are data schemas, so generated function-schema information alone
+cannot be counted as coverage of them.
+
+For each candidate mechanism, record the exact pinned generator and linter
+commands, generated files, local config that loads them, and diagnostics with
+file, row, column, type and exit status. In a disposable checkout run the same
+fixtures with and without only that mechanism, using isolated caches. A valid
+control must pass in both cases; a targeted negative must fail only when the
+mechanism is loaded, for the expected diagnostic. Run a separate unresolved
+symbol control and the existing `await` examples/test forms with root config
+unchanged. Test both CLJ and CLJS where the mechanism claims support; if a
+form or diagnostic is unsupported, record that as a gap rather than treating a
+passing fixture as proof. The future change must also run the actual CI entry
+point `npm run lint:kondo` (which includes `examples/cljs`), not just the
+five-root baseline command.
+
+A malformed data-schema control has a different expected outcome from a
+function-call arity/type control. First demonstrate that the selected tool can
+actually identify that schema error; if it cannot, stop and seek a reviewed
+solution or issue-criterion disposition. Do not replace the data-schema test
+with a synthetic function-schema failure. Runtime `m/validate` behavior and
+schema construction tests are independent evidence and cannot by themselves
+prove a static lint diagnostic.
+
 ## Red/green and complete outcome
 
 After planning qualification/native readiness, RED proves the actual defect
